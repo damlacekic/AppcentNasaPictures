@@ -31,4 +31,4 @@ When you choose one of the cameras from the option menu you can see the pictures
 
 ![filtering2](https://user-images.githubusercontent.com/72108390/118377341-61e52200-b5d5-11eb-9a82-7eb873cff77b.png)
 
-I used https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY for the API, if you have teouble with api I recomend you to take another API KEY!!
+I used https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY for the API, if you have trouble with api I recommend you to take another API KEY!!
