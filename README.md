@@ -15,7 +15,7 @@ Technologies that used
 
 ![Group 1](https://user-images.githubusercontent.com/72108390/118377082-69f09200-b5d4-11eb-8472-46c0a68be187.png)
 
-When users open the app they direcly reach a tab screen which contain the selection of rovers.
+When users open the app they reach directly a tab screen which contain the selection of rovers.
 
 ![giriş](https://user-images.githubusercontent.com/72108390/118377177-a3c19880-b5d4-11eb-96c2-ba75effbfb55.png)
 
@@ -27,7 +27,7 @@ There is a option menu bar for filtering the pictures, which shows different val
 
 ![filterin1](https://user-images.githubusercontent.com/72108390/118377351-6b6e8a00-b5d5-11eb-8d2b-05eccf58cc37.png)
 
-When you choose one of the cameras from the option menu you can see the pictures the camera's take
+When users choose one of the cameras from the option menu they can see the pictures the cameras take
 
 ![filtering2](https://user-images.githubusercontent.com/72108390/118377341-61e52200-b5d5-11eb-9a82-7eb873cff77b.png)
 
