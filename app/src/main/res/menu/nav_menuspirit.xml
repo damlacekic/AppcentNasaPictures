@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cameraSOCFHAZ"
+        android:title="FHAZ">
+
+    </item>
+    <item android:id="@+id/cameraSOCRHAZ"
+        android:title="RHAZ">
+
+    </item>
+    <item android:id="@+id/cameraSOCNAVCAM"
+        android:title="NAVCAM">
+
+    </item>
+    <item android:id="@+id/cameraSOPANCAM"
+        android:title="PANCAM"
+        >
+
+    </item>
+
+    <item android:id="@+id/cameraSOMINITES"
+        android:title="MINITES">
+
+    </item>
+
+
+
+</menu>
