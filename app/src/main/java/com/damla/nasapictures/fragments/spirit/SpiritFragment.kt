@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.damla.nasapictures.R
@@ -15,6 +16,8 @@ import com.damla.nasapictures.databinding.FragmentSpiritBinding
 import com.damla.nasapictures.recyclerview.AdapterOpportunity
 import com.damla.nasapictures.recyclerview.AdapterSpirit
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SpiritFragment : Fragment() {
 
@@ -51,8 +54,14 @@ class SpiritFragment : Fragment() {
 
     fun loaddata(){
 
-        mApiViewModel.getPhotosLiveData("spirit").observe(viewLifecycleOwner, Observer {
-            spiritAdapter.submitData(this.lifecycle,it)})
+        lifecycleScope.launch {
+            mApiViewModel.getPhotos("spirit").collect {
+                    spiritAdapter.submitData(it)}
+
+        }
+
+       /* mApiViewModel.getPhotosLiveData("spirit").observe(viewLifecycleOwner, Observer {
+            spiritAdapter.submitData(this.lifecycle,it)})*/
 
 
     }

@@ -16,7 +16,20 @@ import javax.inject.Inject
 
 class ViewModelDataSource (application: Application):AndroidViewModel(application) {
     private var currentResult: Flow<PagingData<Photo>> ?=null
+ /*   private val repository by lazy{
+        DataSourceRepository()
+    }*/
 
+
+      fun getPhotos(name : String): Flow<PagingData<Photo>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                DataSource(name)
+            }
+
+        ).flow.cachedIn(viewModelScope)
+    }
 
 
     fun getPhotosFilteredLiveData(name:String,camera:String): LiveData<PagingData<Photo>> {

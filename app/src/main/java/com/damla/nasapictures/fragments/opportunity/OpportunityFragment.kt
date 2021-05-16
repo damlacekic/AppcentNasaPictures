@@ -7,6 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.damla.nasapictures.R
@@ -17,6 +18,8 @@ import com.damla.nasapictures.databinding.FragmentOppurtunityBinding
 import com.damla.nasapictures.recyclerview.AdapterCuriosity
 import com.damla.nasapictures.recyclerview.AdapterOpportunity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class OpportunityFragment : Fragment() {
 
@@ -57,9 +60,13 @@ class OpportunityFragment : Fragment() {
 
 
     fun loaddata(){
+        lifecycleScope.launch {
+            mApiViewModel.getPhotos("oppartunity").collect {
+                opportunityAdapter.submitData(it)}
 
-            mApiViewModel.getPhotosLiveData("opportunity").observe(viewLifecycleOwner, Observer {
-                opportunityAdapter.submitData(this.lifecycle,it)})
+        }
+         /*   mApiViewModel.getPhotosLiveData("opportunity").observe(viewLifecycleOwner, Observer {
+                opportunityAdapter.submitData(this.lifecycle,it)})*/
 
 
     }

@@ -12,6 +12,8 @@ import com.damla.nasapictures.dataSource.ViewModelDataSource
 import com.damla.nasapictures.databinding.FragmentCuriosityBinding
 
 import com.damla.nasapictures.recyclerview.AdapterCuriosity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class CuriosityFragment : Fragment() {
@@ -48,12 +50,17 @@ class CuriosityFragment : Fragment() {
 
 
     fun loaddata(){
-            mApiViewModel.getPhotosLiveData("curiosity").observe(viewLifecycleOwner, Observer {
-                curiosityAdapter.submitData(this.lifecycle,it)})
+        lifecycleScope.launch {
+            mApiViewModel.getPhotos("curiosity").collect {
+                curiosityAdapter.submitData(it)}
 
-        mApiViewModel.getPhotosLiveData("curiosity").observe(viewLifecycleOwner, Observer {
-            curiosityAdapter.submitData(this.lifecycle,it)})
-    }
+        }
+        }
+          /*  mApiViewModel.getPhotos("curiosity").observe(viewLifecycleOwner, Observer {
+                curiosityAdapter.submitData(this.lifecycle,it)})*/
+
+
+    //}
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         if(this.isVisible){
             if(!isVisibleToUser && !hasLoadedOnce){
