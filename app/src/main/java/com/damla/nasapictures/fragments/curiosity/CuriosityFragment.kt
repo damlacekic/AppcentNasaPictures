@@ -1,5 +1,7 @@
 package com.damla.nasapictures.fragments.curiosity
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -118,8 +120,26 @@ class CuriosityFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu?.removeItem(R.id.cameraSOPANCAM)
+        menu?.removeItem(R.id.cameraSOCNAVCAM)
 
+    }
 
+    override fun onAttach(activity: Activity) {
+        println("onAttach Activity")
+        super.onAttach(activity)
+    }
+
+    override fun onAttach(context: Context) {
+        println("onAttach context")
+        super.onAttach(context)
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        println("onAttachFragment")
+        super.onAttachFragment(childFragment)
+    }
 }
 
 

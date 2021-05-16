@@ -111,6 +111,12 @@ class OpportunityFragment : Fragment() {
 
         return super.onOptionsItemSelected(item)
     }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu?.removeItem(R.id.cameraCMAST)
+        menu?.removeItem(R.id.cameraCCHEMCAM)
+        menu?.removeItem(R.id.cameraCMAHLI)
+        menu?.removeItem(R.id.cameraCMARDI)
+    }
 
 }
 

@@ -70,27 +70,37 @@ class SpiritFragment : Fragment() {
 
         }
         if (item.itemId == R.id.cameraSOCRHAZ) {
+            setupRecyclerView()
             mApiViewModel.getPhotosFilteredLiveData("spirit","rhaz").observe(viewLifecycleOwner,Observer{
                 spiritAdapter.submitData(this.lifecycle,it) })
 
         }
         if (item.itemId == R.id.cameraSOCNAVCAM) {
+            setupRecyclerView()
             mApiViewModel.getPhotosFilteredLiveData("spirit","navcam").observe(viewLifecycleOwner,Observer{
                 spiritAdapter.submitData(this.lifecycle,it) })
 
         }
         if (item.itemId == R.id.cameraSOPANCAM) {
+            setupRecyclerView()
             mApiViewModel.getPhotosFilteredLiveData("spirit","pancam").observe(viewLifecycleOwner,Observer{
                 spiritAdapter.submitData(this.lifecycle,it) })
 
         }
         if (item.itemId == R.id.cameraSOMINITES) {
+            setupRecyclerView()
             mApiViewModel.getPhotosFilteredLiveData("spirit","minites").observe(viewLifecycleOwner,Observer{
                 spiritAdapter.submitData(this.lifecycle,it) })
 
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu?.removeItem(R.id.cameraCMAST)
+        menu?.removeItem(R.id.cameraCCHEMCAM)
+        menu?.removeItem(R.id.cameraCMAHLI)
+        menu?.removeItem(R.id.cameraCMARDI)
     }
 
 

@@ -68,9 +68,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+/*
+
+
+
+*/
 
             if(changingCameras==0){
-                menu?.findItem(R.id.cameraSOCFHAZ)?.setVisible(false)
+               menu?.findItem(R.id.cameraSOCFHAZ)?.setVisible(false)
                 menu?.findItem(R.id.cameraSOCRHAZ)?.setVisible(false)
                 menu?.findItem(R.id.cameraSOCNAVCAM)?.setVisible(false)
                 menu?.findItem(R.id.cameraCMAST)?.setVisible(false)
@@ -86,6 +91,11 @@ class MainActivity : AppCompatActivity() {
                 menu?.findItem(R.id.cameraSOCNAVCAM)?.setVisible(false)
                 menu?.findItem(R.id.cameraSOPANCAM)?.setVisible(false)
                 menu?.findItem(R.id.cameraSOMINITES)?.setVisible(false)
+
+
+
+
+
 
             }
             if(changingCameras==2){
