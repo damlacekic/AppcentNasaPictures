@@ -7,19 +7,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 
 import androidx.viewpager2.widget.ViewPager2
 import com.damla.nasapictures.R
 import com.damla.nasapictures.adater.ViewPagerAdapter
+import com.damla.nasapictures.dataSource.ViewModelDataSource
 import com.damla.nasapictures.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
+
+
+
     private lateinit var binding: ActivityMainBinding
+    private lateinit var aViewModel : ActivityViewModel
     var changingCameras : Int =  1
-    private lateinit var preferences : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,17 +32,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         val tablayout : TabLayout = binding.tabLayout
         val viewPager2:ViewPager2 = binding.viewPager
+        aViewModel = ViewModelProvider(this).get(ActivityViewModel::class.java)
         val adapter = ViewPagerAdapter(supportFragmentManager,lifecycle)
         val toolBar : Toolbar = binding.toolBarPictures
-        preferences = getSharedPreferences("com.damla.finalproject", Context.MODE_PRIVATE)
         setSupportActionBar(toolBar)
         viewPager2.adapter = adapter
-        viewPager2.offscreenPageLimit = 3
         viewPager2.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 changingCameras = position
-                preferences?.edit()?.putInt("position",changingCameras)?.apply()
-
                 super.onPageSelected(position)
             }
         })
@@ -97,4 +99,8 @@ class MainActivity : AppCompatActivity() {
 
         return super.onPrepareOptionsMenu(menu)
     }
+
+
+
+
 }

@@ -20,8 +20,7 @@ class DataSourceFiltered(name:String,camera:String):PagingSource<Int,Photo>() {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
-        return try {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> { return try {
             val page = params.key ?: 1
             val response = RetrofitInstance.api.getFilterdFotos(name,params.loadSize,page,camera)
             val responseData = mutableListOf<Photo>()

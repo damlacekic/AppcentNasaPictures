@@ -21,8 +21,8 @@ class SpiritFragment : Fragment() {
     private lateinit var binding: FragmentSpiritBinding
     private lateinit var mApiViewModel : ViewModelDataSource
     private lateinit var spiritAdapter:AdapterSpirit
+    private lateinit var sViewModel : SpiritViewModel
     lateinit var recyclerView: RecyclerView
-    var hasLoadedOnce = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,18 +30,9 @@ class SpiritFragment : Fragment() {
         binding = FragmentSpiritBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerViewSpirit
         mApiViewModel = ViewModelProvider(this).get(ViewModelDataSource::class.java)
-     /*   mApiViewModel.searchPhotoLiveData("spirit").observe(viewLifecycleOwner, Observer {
-            val adapter = AdapterSpirit()
-            adapter.submitData(this.lifecycle,it)
-            recyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.layoutManager = layoutManager
-                recyclerView.adapter = adapter
-            }
-        })*/
-/*
-        setRetainInstance(true)
-*/
+        sViewModel = ViewModelProvider(this).get(SpiritViewModel::class.java)
+
+
         setupRecyclerView()
         loaddata()
         setHasOptionsMenu(true)
@@ -102,13 +93,5 @@ class SpiritFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        if(this.isVisible){
-            if(!isVisibleToUser && !hasLoadedOnce){
-                hasLoadedOnce = true
-            }
-        }
 
-        super.setUserVisibleHint(isVisibleToUser)
-    }
 }

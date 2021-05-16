@@ -23,30 +23,24 @@ class OpportunityFragment : Fragment() {
     private lateinit var binding: FragmentOppurtunityBinding
     private lateinit var mApiViewModel: ViewModelDataSource
     private lateinit var recyclerView: RecyclerView
+    private lateinit var oViewModel : OpportunityViewModel
     private lateinit var opportunityAdapter:AdapterOpportunity
     private lateinit var preferences : SharedPreferences
+    var hasLoadedOnce = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         binding = FragmentOppurtunityBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerViewOpportunity
         preferences = requireActivity().getSharedPreferences("com.damla.finalproject", Context.MODE_PRIVATE)
 
         mApiViewModel = ViewModelProvider(this).get(ViewModelDataSource::class.java)
-      /*  mApiViewModel.searchPhotoLiveData("opportunity").observe(viewLifecycleOwner, Observer {
-            val adapter = AdapterOpportunity()
-            adapter.submitData(this.lifecycle, it)
-            recyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.layoutManager = layoutManager
-                recyclerView.adapter = adapter
-            }
-        })*/
-        //setRetainInstance(true)
+        oViewModel = ViewModelProvider(this).get(OpportunityViewModel::class.java)
+
         setupRecyclerView()
         loaddata()
         setHasOptionsMenu(true)
@@ -63,16 +57,20 @@ class OpportunityFragment : Fragment() {
 
 
     fun loaddata(){
-        /*lifecycleScope.launch {
-            mApiViewModel.getPhotos("curiosity").collect {
-                curiosityAdapter.submitData(it)
-            }
-        }*/
 
             mApiViewModel.getPhotosLiveData("opportunity").observe(viewLifecycleOwner, Observer {
                 opportunityAdapter.submitData(this.lifecycle,it)})
 
 
+    }
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        if(this.isVisible){
+            if(!isVisibleToUser && !hasLoadedOnce){
+                hasLoadedOnce = true
+            }
+        }
+
+        super.setUserVisibleHint(isVisibleToUser)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
