@@ -126,20 +126,6 @@ class CuriosityFragment : Fragment() {
 
     }
 
-    override fun onAttach(activity: Activity) {
-        println("onAttach Activity")
-        super.onAttach(activity)
-    }
-
-    override fun onAttach(context: Context) {
-        println("onAttach context")
-        super.onAttach(context)
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        println("onAttachFragment")
-        super.onAttachFragment(childFragment)
-    }
 }
 
 
