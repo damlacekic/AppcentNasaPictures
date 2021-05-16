@@ -1,4 +1,6 @@
 package com.damla.nasapictures.fragments.curiosity
 
-class CuriosityViewModel {
+import androidx.lifecycle.ViewModel
+
+class CuriosityViewModel : ViewModel(){
 }

@@ -17,7 +17,7 @@ interface SimpleApi {
                   @Query("per_page")per_page:Int?,
                   @Query("page") page: Int):
 
-            AllPhotos
+            Response<AllPhotos>
 
 
     @GET("mars-photos/api/v1/rovers/{name}/photos?sol=1000&api_key=TukSIbms13lxHiJLgzzXxbLjulL6AIzTCFVnzPFo")
@@ -25,7 +25,7 @@ interface SimpleApi {
                                 @Query("per_page")per_page:Int?,
                                 @Query("page") page: Int, @Query("camera") camera:String):
 
-            AllPhotos
+            Response<AllPhotos>
 
 
 }

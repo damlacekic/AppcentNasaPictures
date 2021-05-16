@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.*
+import com.damla.nasapictures.api.model.Camera
 import com.damla.nasapictures.api.model.Photo
 import com.damla.nasapictures.dataSource.DataSourceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,16 +16,35 @@ import javax.inject.Inject
 
 class ViewModelDataSource (application: Application):AndroidViewModel(application) {
     private var currentResult: Flow<PagingData<Photo>> ?=null
-    private val repository by lazy{
-        DataSourceRepository()
+
+
+
+    fun getPhotosFilteredLiveData(name:String,camera:String): LiveData<PagingData<Photo>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                DataSourceFiltered(name,camera)
+
+            }
+
+            ).liveData
+    }
+    fun getPhotosLiveData(name : String):LiveData<PagingData<Photo>>{
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                DataSource(name)
+
+            },
+
+            ).liveData
     }
 
-/*
-    fun searchPhotos(name:String,camera:String): Flow<PagingData<Photo>>{
+    /*fun searchPhotos(name:String): Flow<PagingData<Photo>>{
         val newResult:Flow<PagingData<Photo>> = repository.getPhotos(name).cachedIn(viewModelScope)
         currentResult = newResult
         return newResult
-    }*/
+    }
 
     private var currentResultLiveData: LiveData<PagingData<Photo>>?=null
 
@@ -40,6 +59,6 @@ class ViewModelDataSource (application: Application):AndroidViewModel(applicatio
         val newResultFilteredData : LiveData<PagingData<Photo>> = repository.getPhotosFilteredLiveData(name,camera).cachedIn(viewModelScope)
         currentResultFilteredLiveData = newResultFilteredData
         return  newResultFilteredData
-    }
+    }*/
 
 }

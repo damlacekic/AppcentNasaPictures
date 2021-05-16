@@ -1,6 +1,7 @@
 package com.damla.nasapictures.dataSource
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.paging.*
 import com.damla.nasapictures.api.model.Photo
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class DataSourceRepository {
 
- /*   fun getPhotos(name : String): Flow<PagingData<Photo>> {
+  /*  fun getPhotos(name : String): Flow<PagingData<Photo>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false,pageSize = 25),
             pagingSourceFactory = {
@@ -19,10 +20,10 @@ class DataSourceRepository {
             }
 
         ).flow
-    }*/
+    }
+*/
 
-
-    fun getPhotosFilteredLiveData(name:String,camera:String):LiveData<PagingData<Photo>>{
+    /*fun getPhotosFilteredLiveData(name:String,camera:String):LiveData<PagingData<Photo>>{
         return Pager(
             config = PagingConfig(enablePlaceholders = false,pageSize = 25),
             pagingSourceFactory = {
@@ -41,5 +42,5 @@ class DataSourceRepository {
             },
 
         ).liveData
-    }
+    }*/
 }

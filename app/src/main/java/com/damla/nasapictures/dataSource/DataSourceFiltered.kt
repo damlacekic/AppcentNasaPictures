@@ -1,3 +1,4 @@
+
 package com.damla.nasapictures.dataSource
 
 import androidx.paging.PagingSource
@@ -16,15 +17,18 @@ class DataSourceFiltered(name:String,camera:String):PagingSource<Int,Photo>() {
         this.camera = camera
     }
     override fun getRefreshKey(state: PagingState<Int, Photo>): Int? {
-        return state.anchorPosition
+        return null
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
-        val page = params.key ?: 1
-        println("fuuuck")
         return try {
+            val page = params.key ?: 1
             val response = RetrofitInstance.api.getFilterdFotos(name,params.loadSize,page,camera)
-            val photos = response.photos
+            val responseData = mutableListOf<Photo>()
+            val photos = response.body()?.photos ?: emptyList()
+            responseData.addAll(photos)
+
+
             LoadResult.Page(
                 data = photos,
                 prevKey = if(page==1)null else page-1,

@@ -1,4 +1,6 @@
 package com.damla.nasapictures.fragments.opportunity
 
-class OpportunityViewModel {
+import androidx.lifecycle.ViewModel
+
+class OpportunityViewModel : ViewModel() {
 }

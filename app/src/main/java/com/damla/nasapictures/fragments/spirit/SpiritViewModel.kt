@@ -1,4 +1,6 @@
 package com.damla.nasapictures.fragments.spirit
 
-class SpiritViewModel {
+import androidx.lifecycle.ViewModel
+
+class SpiritViewModel : ViewModel(){
 }

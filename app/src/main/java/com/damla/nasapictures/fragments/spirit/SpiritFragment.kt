@@ -12,13 +12,17 @@ import com.damla.nasapictures.R
 //import com.damla.nasapictures.api.ViewModel.ApiViewModel
 import com.damla.nasapictures.dataSource.ViewModelDataSource
 import com.damla.nasapictures.databinding.FragmentSpiritBinding
+import com.damla.nasapictures.recyclerview.AdapterOpportunity
 import com.damla.nasapictures.recyclerview.AdapterSpirit
+import dagger.hilt.android.AndroidEntryPoint
 
 class SpiritFragment : Fragment() {
 
     private lateinit var binding: FragmentSpiritBinding
     private lateinit var mApiViewModel : ViewModelDataSource
+    private lateinit var spiritAdapter:AdapterSpirit
     lateinit var recyclerView: RecyclerView
+    var hasLoadedOnce = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +30,7 @@ class SpiritFragment : Fragment() {
         binding = FragmentSpiritBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerViewSpirit
         mApiViewModel = ViewModelProvider(this).get(ViewModelDataSource::class.java)
-        mApiViewModel.searchPhotoLiveData("spirit").observe(viewLifecycleOwner, Observer {
+     /*   mApiViewModel.searchPhotoLiveData("spirit").observe(viewLifecycleOwner, Observer {
             val adapter = AdapterSpirit()
             adapter.submitData(this.lifecycle,it)
             recyclerView.apply {
@@ -34,10 +38,32 @@ class SpiritFragment : Fragment() {
                 recyclerView.layoutManager = layoutManager
                 recyclerView.adapter = adapter
             }
-        })
-
+        })*/
+/*
+        setRetainInstance(true)
+*/
+        setupRecyclerView()
+        loaddata()
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    fun setupRecyclerView(){
+        spiritAdapter = AdapterSpirit()
+        binding.recyclerViewSpirit.apply {
+            adapter = spiritAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+    }
+
+
+    fun loaddata(){
+
+        mApiViewModel.getPhotosLiveData("spirit").observe(viewLifecycleOwner, Observer {
+            spiritAdapter.submitData(this.lifecycle,it)})
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -47,74 +73,42 @@ class SpiritFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.cameraSOCFHAZ) {
-            mApiViewModel.searchPhotoFilteredLiveData("spirit","fhaz").observe(viewLifecycleOwner,
-                Observer { val adapter = AdapterSpirit()
-                    adapter.submitData(this.lifecycle,it)
-                    recyclerView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        recyclerView.layoutManager = layoutManager
-                        recyclerView.adapter = adapter
-                    } })
+            setupRecyclerView()
+            mApiViewModel.getPhotosFilteredLiveData("spirit","fhaz").observe(viewLifecycleOwner,Observer{
+                spiritAdapter.submitData(this.lifecycle,it) })
+
         }
         if (item.itemId == R.id.cameraSOCRHAZ) {
-            mApiViewModel.searchPhotoFilteredLiveData("spirit","rhaz").observe(viewLifecycleOwner,
-                Observer { val adapter = AdapterSpirit()
-                    adapter.submitData(this.lifecycle,it)
-                    if(adapter.itemCount>0){
-                        recyclerView.apply {
-                            layoutManager = LinearLayoutManager(requireContext())
-                            recyclerView.layoutManager = layoutManager
-                            recyclerView.adapter = adapter
-                        }
-                    }else{
-                        Toast.makeText(requireContext(),"I believe there is no photo in this field",
-                            Toast.LENGTH_LONG).show()
+            mApiViewModel.getPhotosFilteredLiveData("spirit","rhaz").observe(viewLifecycleOwner,Observer{
+                spiritAdapter.submitData(this.lifecycle,it) })
 
-                    }
-                    recyclerView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        recyclerView.layoutManager = layoutManager
-                        recyclerView.adapter = adapter
-                    } })
         }
         if (item.itemId == R.id.cameraSOCNAVCAM) {
-            mApiViewModel.searchPhotoFilteredLiveData("spirit","navcam").observe(viewLifecycleOwner,
-                Observer { val adapter = AdapterSpirit()
-                    adapter.submitData(this.lifecycle,it)
+            mApiViewModel.getPhotosFilteredLiveData("spirit","navcam").observe(viewLifecycleOwner,Observer{
+                spiritAdapter.submitData(this.lifecycle,it) })
 
-                        recyclerView.apply {
-                            layoutManager = LinearLayoutManager(requireContext())
-                            recyclerView.layoutManager = layoutManager
-                            recyclerView.adapter = adapter
-
-                    }
-
-                     })
         }
         if (item.itemId == R.id.cameraSOPANCAM) {
-            mApiViewModel.searchPhotoFilteredLiveData("spirit","pancam").observe(viewLifecycleOwner,
-                Observer { val adapter = AdapterSpirit()
-                    adapter.submitData(this.lifecycle,it)
-                    recyclerView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        recyclerView.layoutManager = layoutManager
-                        recyclerView.adapter = adapter
-                    }
+            mApiViewModel.getPhotosFilteredLiveData("spirit","pancam").observe(viewLifecycleOwner,Observer{
+                spiritAdapter.submitData(this.lifecycle,it) })
 
-                })
         }
         if (item.itemId == R.id.cameraSOMINITES) {
-            mApiViewModel.searchPhotoFilteredLiveData("spirit","minites").observe(viewLifecycleOwner,
-                Observer { val adapter = AdapterSpirit()
-                    adapter.submitData(this.lifecycle,it)
-                    recyclerView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        recyclerView.layoutManager = layoutManager
-                        recyclerView.adapter = adapter
-                    } })
+            mApiViewModel.getPhotosFilteredLiveData("spirit","minites").observe(viewLifecycleOwner,Observer{
+                spiritAdapter.submitData(this.lifecycle,it) })
+
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        if(this.isVisible){
+            if(!isVisibleToUser && !hasLoadedOnce){
+                hasLoadedOnce = true
+            }
+        }
+
+        super.setUserVisibleHint(isVisibleToUser)
+    }
 }
