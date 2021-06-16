@@ -1,7 +1,5 @@
 # AppcentNasaPictures
 
-This project is for participating in the Appcent Internship program.
-
 This ptoject allows to users to access a list of photos taken by nasa and filter this list
 
 Technologies that used 
