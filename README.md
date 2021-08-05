@@ -1,4 +1,4 @@
-# AppcentNasaPictures
+# ANasaPictures
 
 This ptoject allows to users to access a list of photos taken by nasa and filter this list
 
